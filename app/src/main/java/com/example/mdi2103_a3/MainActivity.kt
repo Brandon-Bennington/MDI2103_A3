@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -44,7 +45,7 @@ fun RestaurantScreen() {
     val waitingList = remember { mutableStateListOf<String>() }
     val seatedHistory = remember { mutableStateListOf<String>() }
     var customerName by remember { mutableStateOf("") }
-    var message by remember { mutableStateOf("Welcome to our Restaurant!") }
+    var message by remember { mutableStateOf("Welcome to our restaurant!") }
 
     Column(
         modifier = Modifier
@@ -90,6 +91,42 @@ fun RestaurantScreen() {
             Text("Seat Next Customer")
         }
         Spacer(modifier = Modifier.height(8.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Message: $message")
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(text = "Waiting List (Queue)")
+                Spacer(modifier = Modifier.height(8.dp))
+
+                if (waitingList.isEmpty()) {
+                    Text(text = "No customers waiting")
+                } else {
+                    waitingList.forEachIndexed { index, name ->
+                        Text(text = "${index + 1}. $name")
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(text = "Seated History (Stack)")
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
     }
 }
 
